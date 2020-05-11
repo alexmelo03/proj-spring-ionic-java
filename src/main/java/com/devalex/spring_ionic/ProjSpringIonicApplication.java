@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.devalex.spring_ionic.domain.Categoria;
 import com.devalex.spring_ionic.domain.Cidade;
+import com.devalex.spring_ionic.domain.Cliente;
+import com.devalex.spring_ionic.domain.Endereco;
 import com.devalex.spring_ionic.domain.Estado;
 import com.devalex.spring_ionic.domain.Produto;
+import com.devalex.spring_ionic.domain.enums.TipoCliente;
 import com.devalex.spring_ionic.repositories.CategoriaRepository;
 import com.devalex.spring_ionic.repositories.CidadeRepository;
+import com.devalex.spring_ionic.repositories.ClienteRepository;
+import com.devalex.spring_ionic.repositories.EnderecoRepository;
 import com.devalex.spring_ionic.repositories.EstadoRepository;
 import com.devalex.spring_ionic.repositories.ProdutoRepository;
 
@@ -34,6 +39,12 @@ public class ProjSpringIonicApplication implements CommandLineRunner {
 	
 	@Autowired
 	CidadeRepository cidadeRepository;
+	
+	@Autowired
+	ClienteRepository clienteRepository;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -64,6 +75,18 @@ public class ProjSpringIonicApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "mariasilva@gmail.com", "68572145145", TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("37245698", "968475932"));
+		
+		Endereco e1 =  new Endereco(null, "Rua Flores", "301", "Apto 132", "Jardim,", "67150-200", cli1, c1);
+		Endereco e2 =  new Endereco(null, "Rua Nova", "1002", "Sala 800", "Consolação,", "58950-200", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
 		
 	}
