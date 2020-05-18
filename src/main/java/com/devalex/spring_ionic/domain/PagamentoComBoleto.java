@@ -3,8 +3,6 @@ package com.devalex.spring_ionic.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.devalex.spring_ionic.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
