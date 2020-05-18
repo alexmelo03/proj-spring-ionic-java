@@ -61,13 +61,6 @@ public abstract class  Pagamento implements Serializable {
 		this.pedido = pedido;
 	}
 	
-
-	
-
-
-
-
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
