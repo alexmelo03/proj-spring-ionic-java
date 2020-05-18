@@ -7,16 +7,17 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.devalex.spring_ionic.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class PagamentoComBoleto extends Pagamento {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataVencimento;
 	
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataPagamento;
 	
 	public PagamentoComBoleto() {
