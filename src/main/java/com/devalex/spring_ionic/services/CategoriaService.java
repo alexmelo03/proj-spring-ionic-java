@@ -26,6 +26,11 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
+	public Categoria atualizar(Categoria obj) {
+		buscarPorId(obj.getId());
+		return repo.save(obj);
+	}
+	
 	
 
 }
