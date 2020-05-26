@@ -3,8 +3,10 @@ package com.devalex.spring_ionic.domain;
 import javax.persistence.Entity;
 
 import com.devalex.spring_ionic.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento {
 	
 	private static final long serialVersionUID = 1L;
