@@ -122,11 +122,12 @@ public class DBService {
 	
 	Endereco e1 =  new Endereco(null, "Rua Flores", "301", "Apto 132", "Jardim,", "67150-200", cli1, c1);
 	Endereco e2 =  new Endereco(null, "Rua Nova", "1002", "Sala 800", "Consolação,", "58950-200", cli1, c2);
+	Endereco e3 =  new Endereco(null, "Rua Para", "604", "Apto 1002", "Coqueiro,", "67140-200", cli1, c3);
 	
 	cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 	
 	clienteRepository.saveAll(Arrays.asList(cli1));
-	enderecoRepository.saveAll(Arrays.asList(e1, e2));
+	enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 	
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
