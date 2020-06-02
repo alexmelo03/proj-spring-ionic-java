@@ -20,6 +20,7 @@ import com.devalex.spring_ionic.domain.PagamentoComCartao;
 import com.devalex.spring_ionic.domain.Pedido;
 import com.devalex.spring_ionic.domain.Produto;
 import com.devalex.spring_ionic.domain.enums.EstadoPagamento;
+import com.devalex.spring_ionic.domain.enums.Perfil;
 import com.devalex.spring_ionic.domain.enums.TipoCliente;
 import com.devalex.spring_ionic.repositories.CategoriaRepository;
 import com.devalex.spring_ionic.repositories.CidadeRepository;
@@ -121,17 +122,22 @@ public class DBService {
 	cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 	
 	Cliente cli1 = new Cliente(null, "Alex Melo", "alexmello79@yahoo.com.br", "68572145145", TipoCliente.PESSOAFISICA, pe.encode("123"));
-	
 	cli1.getTelefones().addAll(Arrays.asList("37245698", "968475932"));
+	
+	Cliente cli2 = new Cliente(null, "Alex Andrade", "alexmello79@hotmail.com.br", "50260482005", TipoCliente.PESSOAFISICA, pe.encode("1234"));
+	cli2.getTelefones().addAll(Arrays.asList("93553321", "34652625"));
+	cli2.addPerfil(Perfil.ADMIN);
 	
 	Endereco e1 =  new Endereco(null, "Rua Flores", "301", "Apto 132", "Jardim,", "67150-200", cli1, c1);
 	Endereco e2 =  new Endereco(null, "Rua Nova", "1002", "Sala 800", "Consolação,", "58950-200", cli1, c2);
 	Endereco e3 =  new Endereco(null, "Rua Para", "604", "Apto 1002", "Coqueiro,", "67140-200", cli1, c3);
+	Endereco e4 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "281777012", cli2, c2);
 	
 	cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+	cli2.getEnderecos().addAll(Arrays.asList(e3));
 	
-	clienteRepository.saveAll(Arrays.asList(cli1));
-	enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
+	clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+	enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
 	
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
