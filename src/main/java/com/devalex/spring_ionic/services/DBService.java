@@ -133,8 +133,8 @@ public class DBService {
 	Endereco e3 =  new Endereco(null, "Rua Para", "604", "Apto 1002", "Coqueiro,", "67140-200", cli1, c3);
 	Endereco e4 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "281777012", cli2, c2);
 	
-	cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
-	cli2.getEnderecos().addAll(Arrays.asList(e3));
+	cli1.getEnderecos().addAll(Arrays.asList(e1, e2, e3));
+	cli2.getEnderecos().addAll(Arrays.asList(e4));
 	
 	clienteRepository.saveAll(Arrays.asList(cli1, cli2));
 	enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
@@ -144,30 +144,39 @@ public class DBService {
 	
 	Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
 	Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+	Pedido ped3 = new Pedido(null, sdf.parse("15/12/2018 19:105"), cli2, e4);
 	
 	Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 	ped1.setPagamento(pagto1);
 
 	Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
 	ped2.setPagamento(pagto2);
+	
+	Pagamento pagto3 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped3, sdf.parse("15/12/2018 00:00"), null);
+	ped3.setPagamento(pagto3);
+
 
 	cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+	cli2.getPedidos().addAll(Arrays.asList(ped3));
 
-	pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
-	pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+	pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));
+	pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2, pagto3));
 	
 	ItemPedido ip1 =  new ItemPedido(ped1, p1, 0.0, 1, 2000.00);
 	ItemPedido ip2 =  new ItemPedido(ped1, p3, 0.0, 2, 80.00);
 	ItemPedido ip3 =  new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+	ItemPedido ip4 =  new ItemPedido(ped3, p7, 200.00, 1, 1200.00);
 	
 	ped1.getItens().addAll(Arrays.asList(ip1, ip2));
 	ped2.getItens().addAll(Arrays.asList(ip3));
+	ped3.getItens().addAll(Arrays.asList(ip4));
 	
 	p1.getItens().addAll(Arrays.asList(ip1));
 	p2.getItens().addAll(Arrays.asList(ip3));
 	p3.getItens().addAll(Arrays.asList(ip2));
+	p7.getItens().addAll(Arrays.asList(ip4));
 	
-	itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+	itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3, ip4));
 	
 	}
 
