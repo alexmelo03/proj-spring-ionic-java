@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devalex.spring_ionic.domain.Cidade;
 import com.devalex.spring_ionic.domain.Cliente;
 import com.devalex.spring_ionic.domain.Endereco;
+import com.devalex.spring_ionic.domain.enums.Perfil;
 import com.devalex.spring_ionic.domain.enums.TipoCliente;
 import com.devalex.spring_ionic.dto.ClienteDTO;
 import com.devalex.spring_ionic.dto.ClienteNewDTO;
 import com.devalex.spring_ionic.repositories.ClienteRepository;
 import com.devalex.spring_ionic.repositories.EnderecoRepository;
+import com.devalex.spring_ionic.security.UserSS;
+import com.devalex.spring_ionic.services.exceptions.AuthorizationException;
 import com.devalex.spring_ionic.services.exceptions.DataIntegrityException;
 import com.devalex.spring_ionic.services.exceptions.ObjectNotFoundException;
 
@@ -36,6 +39,11 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 		
 	public Cliente buscarPorId(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
